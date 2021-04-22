@@ -82,7 +82,7 @@ public class CreateUser extends AppCompatActivity implements View.OnClickListene
         Boolean switchState = isGuardSwitch.isChecked();
         List<String> condList = new ArrayList<>();
         condList.add(cond);
-        //String name, String email, List<String> condominiums
+        //String name, String email, List<String> condominiums.
         AuthorizedUser authUser = new AuthorizedUser(inputEmail, condList, switchState);
         db.collection("authorizedUsers").whereEqualTo("email", inputEmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
