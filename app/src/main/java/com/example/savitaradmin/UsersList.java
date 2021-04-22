@@ -103,7 +103,7 @@ public class UsersList extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG , "AuthorizedUser info " + document.get("name")+ " " + document.get("email"));
+                                Log.d(TAG , "AuthorizedUser info " +  document.get("email"));
                                 AuthorizedUser authUser = document.toObject(AuthorizedUser.class);
                                 authUser.setId(document.getId());
                                 usersList.add(authUser);
