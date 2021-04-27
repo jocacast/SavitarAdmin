@@ -1,5 +1,6 @@
 package com.example.savitaradmin;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +26,12 @@ public class UserListAdapter extends
     }
 
     class ExampleViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewUserName, textViewEmailAddress;
+        TextView textViewUserType, textViewEmailAddress, textViewAddress;
         ExampleViewHolder(View itemView) {
             super(itemView);
             textViewEmailAddress = itemView.findViewById(R.id.email_list);
-
+            textViewUserType = itemView.findViewById(R.id.userType_list);
+            textViewAddress = itemView.findViewById(R.id.userAddress_list);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -39,9 +41,13 @@ public class UserListAdapter extends
                     }
                 }
             });
-
-
         }
+        public void setHolderColor(AuthorizedUser model){
+            if(model.isGuard()){
+                itemView.setBackgroundColor(Color.rgb(255,206,0));
+            }
+        }
+
     }
     UserListAdapter(List<AuthorizedUser> exampleList) {
         this.exampleList = exampleList;
@@ -57,7 +63,16 @@ public class UserListAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
         AuthorizedUser model = exampleList.get(position);
+        holder.setHolderColor(model);
         holder.textViewEmailAddress.setText(model.getEmail());
+        String userType = "";
+        if (model.isGuard()){
+            userType = "Guard";
+        }else{
+            userType = "Resident";
+        }
+        holder.textViewUserType.setText(userType);
+        holder.textViewAddress.setText(model.getAddress());
     }
     @Override
     public int getItemCount() {

@@ -120,10 +120,10 @@ public class Register extends AppCompatActivity  implements View.OnClickListener
                             passwordResetDialog.create().show();
                             return;
                         }else{
-                            for (QueryDocumentSnapshot document : task.getResult()) {
+                            /*for (QueryDocumentSnapshot document : task.getResult()) {
                                 adminCondominiums = (List<String>)document.get("condominiums");
                                 Log.d(TAG, "Condominiums "+  adminCondominiums);
-                            }
+                            }*/
 
                             fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -149,7 +149,7 @@ public class Register extends AppCompatActivity  implements View.OnClickListener
                                         Map<String,Object> admin = new HashMap<>();
                                         admin.put("fName",fullName);
                                         admin.put("email",email);
-                                        admin.put("condominiums",  adminCondominiums);
+                                        //admin.put("condominiums",  adminCondominiums);
                                         documentReference.set(admin).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {

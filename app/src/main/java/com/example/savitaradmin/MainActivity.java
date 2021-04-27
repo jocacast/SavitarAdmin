@@ -52,28 +52,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-        DocumentReference docRef = fStore.collection("admins").document(userId);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.get("condominiums"));
-                        List<String> subjects = (ArrayList<String>)document.get("condominiums");
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, subjects);
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        condSpiner.setAdapter(adapter);
-                    } else {
-                        Log.d(TAG, "No such document");
+        fStore.collection("authorizedAdmins").whereEqualTo("email", user.getEmail()).get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<String> subjects = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                subjects = (ArrayList<String>)document.get("condominiums");
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, subjects);
+                            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            condSpiner.setAdapter(adapter);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-
+                });
     }
 
     @Override
@@ -88,6 +83,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
 
 
 }

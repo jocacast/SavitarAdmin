@@ -96,7 +96,7 @@ public class UsersList extends AppCompatActivity {
     private void fillExampleList() {
         Log.d(TAG, "fillExampleList started");
         db.collection("authorizedUsers")
-                .whereArrayContains("condominiums", cond)
+                .whereEqualTo("condominium", cond)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
