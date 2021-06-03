@@ -37,7 +37,7 @@ public class AdminProfile extends AppCompatActivity implements View.OnClickListe
     String userId;
     FirebaseUser user;
     String cond;
-    Button usersList, guardsList, changePassword;
+    Button usersList, changePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,6 @@ public class AdminProfile extends AppCompatActivity implements View.OnClickListe
         email    = findViewById(R.id.email);
         condominium = findViewById(R.id.adminCondominium);
         usersList = findViewById(R.id.usersList);
-        guardsList = findViewById(R.id.guardsList);
         changePassword = findViewById(R.id.changePass);
 
 
@@ -65,7 +64,6 @@ public class AdminProfile extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(myToolBar);
 
         usersList.setOnClickListener(this);
-        guardsList.setOnClickListener(this);
         changePassword.setOnClickListener(this);
 
         DocumentReference documentReference = fStore.collection("admins").document(userId);
@@ -110,8 +108,6 @@ public class AdminProfile extends AppCompatActivity implements View.OnClickListe
             i.putExtra("condominium", cond);
             startActivity(i);
             //startActivity(intent);
-        }else if(viewId == R.id.guardsList){
-            Log.d(TAG, "Show Guards List");
         }else if (viewId == R.id.changePass){
             changePass();
         }

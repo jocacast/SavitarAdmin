@@ -38,8 +38,9 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
     FirebaseFirestore db;
     Button saveBtn, deleteBtn;
     TextView userEmailTextView;
+    EditText userAddress;
     AuthorizedUser authorizedUser;
-    SwitchCompat isGuardSwitch;
+    SwitchCompat isGuardSwitch, isEnabledSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +59,16 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
         saveBtn = findViewById(R.id.saveBtn);
         deleteBtn = findViewById(R.id.deleteBtn);
         isGuardSwitch = findViewById(R.id.isGuard);
+        isEnabledSwitch = findViewById(R.id.isEnabled);
+        userAddress = findViewById(R.id.userAddress);
 
         Toolbar myToolBar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolBar);
 
-        if (getSupportActionBar() != null){
+        /*if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        }*/
         setStaticInformation();
         saveBtn.setOnClickListener(this);
         deleteBtn.setOnClickListener(this);
@@ -75,6 +78,8 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
         Log.d(TAG, "AuthUser getEmail " + authorizedUser.getEmail());
         userEmailTextView.setText(authorizedUser.getEmail());
         isGuardSwitch.setChecked(authorizedUser.isGuard());
+        isEnabledSwitch.setChecked(authorizedUser.isEnabled());
+        userAddress.setText(authorizedUser.getAddress());
     }
 
     @Override
@@ -83,13 +88,13 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
         if(viewId == R.id.saveBtn){
             saveVisitorInfo();
         }else if(viewId == R.id.deleteBtn){
-            deleteVisitor();
+            deleteVisitorV2();
         }
     }
 
     private void saveVisitorInfo(){
         db.collection("authorizedUsers").document(documentId)
-                .update("isGuard", isGuardSwitch.isChecked())
+                .update("guard", isGuardSwitch.isChecked(),"enabled", isEnabledSwitch.isChecked(), "address", userAddress.getText().toString())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -100,7 +105,43 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
                 });
     }
 
-    private void deleteVisitor(){
+    private void deleteVisitorV2() {
+        Log.d(TAG, "Delete Button selected");
+        final TextView deleteVisitor = new TextView(EditUser.this);
+        final AlertDialog.Builder deleteVisitorAlertDialog = new AlertDialog.Builder(EditUser.this);
+        deleteVisitorAlertDialog.setTitle("Delete User " + authorizedUser.getEmail()+"?");
+        deleteVisitorAlertDialog.setView(deleteVisitor);
+        deleteVisitorAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "Yes clicked");
+                db.collection("authorizedUsers").document(documentId)
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                finishEditActivity();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EditUser.this, "Delete Function Failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+        deleteVisitorAlertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.d(TAG, "No clicked");
+            }
+        });
+        deleteVisitorAlertDialog.create().show();
+    }
+
+    /*private void deleteVisitor(){
         final TextView deleteVisitor = new TextView(EditUser.this);
         final AlertDialog.Builder deleteVisitorAlertDialog = new AlertDialog.Builder(EditUser.this);
         deleteVisitorAlertDialog.setTitle("Delete User " + authorizedUser.getEmail()+"?");
@@ -108,7 +149,7 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
         /*
         * If user has more than one condominium >> Update user by removing from current condominium FieldValue.arrayRemove("east_coast"
         * else delete user
-        * */
+        *
         deleteVisitorAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -171,7 +212,7 @@ public class EditUser extends AppCompatActivity implements View.OnClickListener{
             }
         });
         deleteVisitorAlertDialog.create().show();
-    }
+    }*/
 
     private void finishEditActivity(){
         finish();

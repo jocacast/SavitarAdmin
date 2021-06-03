@@ -23,8 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/savitar_admin"
         android:textColor="#FFEB3B"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/profileImage"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -34,10 +34,9 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="@string/Profile"
         android:textColor="#F7F7F8"
-        android:textSize="15sp"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_title"
@@ -47,15 +46,19 @@
 
         <ImageView
         android:id="@+id/profileImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent=".25"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintHeight_percent=".15"
+        app:layout_constraintHeight_default="percent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintVertical_bias="0.13999999"
-        app:srcCompat="@drawable/ic_baseline_account_circle_24" />
+        app:srcCompat="@drawable/ic_baseline_admin_panel_settings_24"
+            tools:ignore="VectorDrawableCompat" />
 
         <TextView
         android:id="@+id/textView3"
@@ -63,14 +66,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Full Name"
         android:textColor="#FFEB3B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImage"
+        app:layout_constraintBottom_toTopOf="@id/userFullName"/>
 
         <TextView
         android:id="@+id/userFullName"
@@ -78,16 +81,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Your Name"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintBottom_toTopOf="@id/textView4"/>
 
         <TextView
         android:id="@+id/textView4"
@@ -95,14 +98,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Email"
         android:textColor="#FFEB3B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userFullName" />
+        app:layout_constraintTop_toBottomOf="@+id/userFullName"
+            app:layout_constraintBottom_toTopOf="@id/email"/>
 
         <TextView
         android:id="@+id/email"
@@ -110,16 +113,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Your Email Address"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintBottom_toTopOf="@id/textView5"/>
 
         <TextView
         android:id="@+id/textView5"
@@ -127,13 +130,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Condominium"
+        android:text="Office"
         android:textColor="#FFEB3B"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/adminCondominium"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
         <TextView
@@ -142,16 +145,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Condominium"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:layout_constraintBottom_toTopOf="@id/usersList"/>
 
 
 
@@ -163,25 +166,13 @@
         android:layout_marginEnd="25dp"
         android:text="My Users List"
         app:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@+id/guardsList"
+        app:layout_constraintBottom_toTopOf="@+id/changePass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminCondominium"
         app:layout_constraintVertical_bias="0.59000003" />
 
-        <Button
-        android:id="@+id/guardsList"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:text="My Guard List"
-        app:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toTopOf="@+id/changePass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usersList"
-        app:layout_constraintVertical_bias="0.59000003" />
+
 
         <Button
         android:id="@+id/changePass"
@@ -194,7 +185,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guardsList"
+        app:layout_constraintTop_toBottomOf="@+id/usersList"
         app:layout_constraintVertical_bias="0.59000003" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
