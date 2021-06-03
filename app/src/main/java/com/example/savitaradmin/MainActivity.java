@@ -2,10 +2,14 @@ package com.example.savitaradmin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Set On Click listeners
         nextBtn.setOnClickListener(this);
         fStore = FirebaseFirestore.getInstance();
+        //Toolbar
+        Toolbar myToolBar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolBar);
 
 
 
@@ -84,12 +91,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.profile_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if(itemId == R.id.logout){
+            logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     public void onBackPressed(){
         Intent a = new Intent(Intent.ACTION_MAIN);
         a.addCategory(Intent.CATEGORY_HOME);
         a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(a);
     }
-
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(),Login.class));
+        finish();
+    }
 
 }

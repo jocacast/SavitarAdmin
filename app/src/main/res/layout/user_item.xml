@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_below="@+id/email_list"
-            android:text="User Address"
+            android:text="User Office"
             android:textColor="@color/purple_200" />
 
         <TextView

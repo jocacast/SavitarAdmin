@@ -24,4 +24,7 @@
     <string name="usersList">Users List</string>
     <string name="addUser">Add User</string>
     <string name="editUser">Edit User</string>
+    <string name="condominium_title">My Condominiums</string>
+    <string name="main_title">My Offices</string>
+    <string name="main_subtitle">Please select your office</string>
 </resources>
